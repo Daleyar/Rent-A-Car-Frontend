@@ -19,6 +19,9 @@ const NavBar = ({user}) => {
                     <li className="nav-item">
                         <Link className="nav-link" to={"/profile"}>Profile</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/logout"}>Log Out</Link>
+                    </li>
                 </div>
             }
             {!user.email &&
