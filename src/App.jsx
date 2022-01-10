@@ -1,13 +1,13 @@
 import React, { useState, useEffect} from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import jwtDecode from "jwt-decode";
-import Home from './components/Home';
+import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import NavBar from './components/NavBar/NavBar';
 import Profile from './components/Profile';
 import Register from './components/Register/Register';
 import Rental from './components/Rental';
-import Logout from "./components/Logout.jsx/Logout";
+import Logout from "./components/Logout/Logout";
 
 function App() {
   const [user, setUserId] = useState(" ");

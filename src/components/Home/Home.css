@@ -1,0 +1,19 @@
+.card-car {
+    display: flex;
+    max-height: 30vh;
+    max-width: 30vw;
+    /* margin-left: 2vw; */
+    margin-top: 5vw;
+    
+}
+
+.card-car img {
+    width: 100%;
+    height: 100%;
+}
+.card-car-body {
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
