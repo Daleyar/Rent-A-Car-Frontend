@@ -6,7 +6,7 @@ import Login from './components/Login/Login';
 import NavBar from './components/NavBar/NavBar';
 import Profile from './components/Profile';
 import Register from './components/Register/Register';
-import Rental from './components/Rental';
+import Rental from './components/Rental/Rental';
 import Logout from "./components/Logout/Logout";
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
         <Route path="/home" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/rental" component={Rental} />
+        <Route path="/rental/:carid" component={Rental} />
         <Route path="/profile" component={Profile} />
         <Route path="/logout" component={Logout} />
         </Switch>

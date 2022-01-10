@@ -31,7 +31,7 @@ const Home = (props) => {
                                 <div className="card-car-body">
                                     <h3>{car.model}({car.year})</h3>
                                     <p> Daily Rental Rate: ${car.dailyRentalRate}</p>
-                                    <Link to={`/rental`}><button className="btn btn-dark">Rent</button></Link>
+                                    <Link to={`/rental/${car._id}`}><button className="btn btn-dark">Rent</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -41,9 +41,7 @@ const Home = (props) => {
         )
     }else{
         return(
-            <div>
-                <h2>Loading..</h2>
-            </div>
+            <h1>Loading..</h1>
         )
     }
 
