@@ -1,12 +1,13 @@
 import React, { useState, useEffect} from "react";
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import jwtDecode from "jwt-decode";
 import Home from './components/Home';
 import Login from './components/Login/Login';
 import NavBar from './components/NavBar/NavBar';
 import Profile from './components/Profile';
-import Register from './components/Register';
+import Register from './components/Register/Register';
 import Rental from './components/Rental';
+import Logout from "./components/Logout.jsx/Logout";
 
 function App() {
   const [user, setUserId] = useState(" ");
@@ -29,11 +30,19 @@ function App() {
       <div className="App">
         <NavBar user={user} />
         <Switch>
+        <Route
+          path ='/'
+          exact render = {props => {
+              if (!user.email){
+                return <Redirect to ="/login"/>
+            }}
+          }/>
         <Route path="/home" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/rental" component={Rental} />
         <Route path="/profile" component={Profile} />
+        <Route path="/logout" component={Logout} />
         </Switch>
       </div>
       </Router>

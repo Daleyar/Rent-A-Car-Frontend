@@ -1,0 +1,14 @@
+.register {
+    width: 100%;
+    height: 100%;
+    margin-top: 18vh;
+    display: flex;
+    justify-content: center;
+}
+.register input {
+    margin-bottom: 10px;
+}
+.register h2 {
+    display: flex;
+    justify-content: center;
+}
