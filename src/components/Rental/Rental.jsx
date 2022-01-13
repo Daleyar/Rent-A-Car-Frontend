@@ -8,8 +8,13 @@ const Rental = ({match}) => {
     
     const [car, setCar] = useState();
     const [user, setUser] = useState("");
-    const [from, setFrom] = useState("");
-    const [to, setTo] = useState("");
+    const [from, setFrom] = useState();
+    const [to, setTo] = useState();
+    const [miles, setMiles] = useState();
+    const [coupon, setCoupon] = useState();
+    const [insurance, setInsurance] = useState();
+    const [ageDiscount, setAgeDiscount] = useState();
+    const [totalDays, setTotalDays] = useState("");
 
     useEffect(() => {
         getCar(carId);
@@ -18,6 +23,15 @@ const Rental = ({match}) => {
     useEffect(() => {
         getUserId();
     }, [])
+
+    useEffect(() => {
+        if (from && to){
+            getDifferenceInDays(from, to)  
+            if(parseInt(user.age) >= 25){
+                setAgeDiscount(true)
+            }           
+        }
+    }, [to])
 
     const getUserId = () => {
         const jwt = localStorage.getItem('token');
@@ -57,6 +71,22 @@ const Rental = ({match}) => {
         else if(event.target.name === "to"){         
             setTo(event.target.value)
         }
+        else if(event.target.name === "miles"){         
+            setMiles(event.target.value)
+        }
+        else if(event.target.name === "coupon"){         
+            setCoupon(event.target.value)
+        }
+        else if(event.target.name === "insurance"){         
+            setInsurance(event.target.value)
+        }
+    }
+
+    function getDifferenceInDays(date1, date2) {
+        date1 = new Date(date1)
+        date2 = new Date(date2)
+        let differenceInDays = Math.floor((date2 - date1) / (1000*60*60*24))
+        return setTotalDays(differenceInDays);
     }
 
     if(car){
@@ -71,12 +101,21 @@ const Rental = ({match}) => {
                     <p>Seating: {car.numberOfSeats}</p>
                     <p>Transmission: {car.transmission}</p>
                     <p>Daily Rental Rate: ${car.dailyRentalRate}</p>
-                    <h4>Rental Options</h4>
-                    <label>From:</label>
-                    <input type="date" name="from" className="form-control" onChange={handleChange}/>
-                    <label>To:</label>
-                    <input type="date" name="to" className="form-control" onChange={handleChange}/>
-
+                    <br></br>
+                    <div className="rental-options">
+                        <h4>Rental Options</h4>
+                        <label>From:</label>
+                        <input type="date" name="from" className="form-control" onChange={handleChange}/>
+                        <label>To:</label>
+                        <input type="date" name="to" className="form-control" onChange={handleChange}/>
+                        <label>Miles:</label>
+                        <input type="number" name="miles" className="form-control" placeholder="Enter if more than 15" onChange={handleChange}/>
+                        <label>Coupon Code:</label>
+                        <input type="text" name="coupon" className="form-control" placeholder="Enter if applicable" onChange={handleChange}/>
+                        <input type="checkbox" name="insurance" className="form-check-input" onChange={handleChange}/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">Opt-in For Car Insurance</label>
+                        <button type="submit" className="btn btn-dark">Confirm Rental</button>
+                    </div>
                 </div>
                 </div>
             </div>
