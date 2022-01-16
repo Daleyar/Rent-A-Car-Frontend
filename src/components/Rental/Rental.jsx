@@ -10,11 +10,12 @@ const Rental = ({match}) => {
     const [user, setUser] = useState("");
     const [from, setFrom] = useState();
     const [to, setTo] = useState();
-    const [miles, setMiles] = useState();
+    const [miles, setMiles] = useState(15);
     const [coupon, setCoupon] = useState();
-    const [insurance, setInsurance] = useState();
+    const [insurance, setInsurance] = useState(false);
     const [ageDiscount, setAgeDiscount] = useState();
-    const [totalDays, setTotalDays] = useState("");
+    const [totalDays, setTotalDays] = useState();
+    const [totalAmount, setTotalAmount] = useState(0);
 
     useEffect(() => {
         getCar(carId);
@@ -32,6 +33,23 @@ const Rental = ({match}) => {
             }           
         }
     }, [to])
+
+    useEffect(() =>{
+        let defaultMiles = 15;
+        if (car) {
+            setTotalAmount(totalDays * car.dailyRentalRate);
+            if (!ageDiscount){
+                setTotalAmount(totalAmount + 50 * totalDays)
+            }
+            if (miles > defaultMiles) {
+                let milesDiff = miles - defaultMiles
+                console.log(milesDiff)
+                setTotalAmount(totalAmount + .25 * milesDiff)
+            }
+            if (coupon === "firstCar10" )
+                setTotalAmount(totalAmount - Math.round(totalAmount * .10))
+        }
+    }, [totalDays, miles, insurance, coupon, ageDiscount])
 
     const getUserId = () => {
         const jwt = localStorage.getItem('token');
@@ -72,13 +90,10 @@ const Rental = ({match}) => {
             setTo(event.target.value)
         }
         else if(event.target.name === "miles"){         
-            setMiles(event.target.value)
+            setMiles(parseFloat(event.target.value))
         }
         else if(event.target.name === "coupon"){         
             setCoupon(event.target.value)
-        }
-        else if(event.target.name === "insurance"){         
-            setInsurance(event.target.value)
         }
     }
 
@@ -87,6 +102,16 @@ const Rental = ({match}) => {
         date2 = new Date(date2)
         let differenceInDays = Math.floor((date2 - date1) / (1000*60*60*24))
         return setTotalDays(differenceInDays);
+    }
+
+    function insuranceCheck() {
+        let checkBox = document.getElementById("insurance")
+        console.log(checkBox)
+        if (checkBox.checked === true){
+            setTotalAmount(totalAmount + 50)
+        }else{
+            setTotalAmount(totalAmount - 50)
+        }
     }
 
     if(car){
@@ -109,12 +134,26 @@ const Rental = ({match}) => {
                             <label>To:</label>
                             <input type="date" name="to" className="form-control" onChange={handleChange}/>
                             <label>Miles:</label>
-                            <input type="number" name="miles" className="form-control" placeholder="Enter if more than 15" onChange={handleChange}/>
+                            <input type="text" name="miles" className="form-control" placeholder="Enter if more than 15" onChange={handleChange}/>
                             <label>Coupon Code:</label>
                             <input type="text" name="coupon" className="form-control" placeholder="Enter if applicable" onChange={handleChange}/>
-                            <input type="checkbox" name="insurance" className="form-check-input" onChange={handleChange}/>
-                            <label className="form-check-label" htmlFor="flexCheckDefault">Opt-in For Car Insurance</label>
-                            <button type="submit" className="btn btn-dark">Confirm Rental</button>
+                            <label>Full Coverage Insurance ($50)</label>
+                            <input type="checkbox" name="insurance" id="insurance" className="form-check-input" onChange={insuranceCheck}/>
+                            {from && to &&(
+                                <div className="rental-summary">
+                                <center>
+                                <h5>
+                                    Total Days: {totalDays} <br/>
+                                    Total Miles: {miles} <br/>
+                                    Rent Per Day : ${car.dailyRentalRate} <br/>
+                                </h5>
+                                        
+                                <h3>
+                                    Total Amount: ${totalAmount} <br/>
+                                </h3>        
+                                </center>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
