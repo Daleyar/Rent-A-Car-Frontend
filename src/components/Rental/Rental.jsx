@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from "react";
+import StripeCheckout from "react-stripe-checkout";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import './Rental.css'
@@ -114,13 +115,42 @@ const Rental = ({match}) => {
         }
     }
 
+    const rentCar = async (rentalReq) => {
+        console.log(rentalReq)
+        try {
+            let response = await axios.post('http://localhost:5000/api/rentcar/', rentalReq);
+            console.log(response.data)
+            console.log("Car rental was successful")
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function onToken(token){
+        const rentalReq = {
+            token,
+            user: user._id,
+            car: carId,
+            rentalDates: {
+                from,
+                to,
+            },
+            milesTraveled: miles,
+            rentalFee: totalAmount,
+            renterAgeDiscount: ageDiscount,
+            insurance: insurance,
+        }
+        rentCar(rentalReq);
+    }
+
+
     if(car){
         return (
             <div>
                 <div className="card-rental">
                 <img src={`http://localhost:5000/${car.carImage}`} alt="rentalImg"/>
                     <div className="card-rental-body">
-                        <h4>Car Info</h4>
+                        <h3>Car Info</h3>
                         <p>{car.model}({car.year})</p>
                         <p>Type: {car.carType}</p>
                         <p>Seating: {car.numberOfSeats}</p>
@@ -128,7 +158,7 @@ const Rental = ({match}) => {
                         <p>Daily Rental Rate: ${car.dailyRentalRate}</p>
                         <br></br>
                         <div className="rental-options">
-                            <h4>Rental Options</h4>
+                            <h3>Rental Options</h3>
                             <label>From:</label>
                             <input type="date" name="from" className="form-control" onChange={handleChange}/>
                             <label>To:</label>
@@ -141,17 +171,23 @@ const Rental = ({match}) => {
                             <input type="checkbox" name="insurance" id="insurance" className="form-check-input" onChange={insuranceCheck}/>
                             {from && to &&(
                                 <div className="rental-summary">
-                                <center>
                                 <h5>
                                     Total Days: {totalDays} <br/>
                                     Total Miles: {miles} <br/>
                                     Rent Per Day : ${car.dailyRentalRate} <br/>
                                 </h5>
-                                        
                                 <h3>
                                     Total Amount: ${totalAmount} <br/>
-                                </h3>        
-                                </center>
+                                </h3>
+                                <StripeCheckout
+                                    shippingAddress
+                                    token = {onToken}
+                                    currency = "USD"
+                                    amount = {totalAmount * 100}
+                                    stripeKey ="pk_test_51KIMk3ITDzjTFxsQYtTxlaJx6ZZ9AFiHF9HRBk6u5KGSPdjLNjITHBfPlH6DN0160MS1MKtUvUkua7N9VMxCJG7C00V0gJkeOL"
+                                >
+                                <button type="submit" className="btn btn-dark">Confirm Rental</button>
+                                </StripeCheckout>
                                 </div>
                             )}
                         </div>

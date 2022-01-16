@@ -25,8 +25,8 @@ const Home = (props) => {
             <div>
                 {cars[0].map(car => {
                     return (
-                        <div key={car._id}>
-                            <div className="card-car">
+                        <div className="card-car">
+                            <div key={car._id}>
                                 <img src={`http://localhost:5000/${car.carImage}`} alt="carImg"/>
                                 <div className="card-car-body">
                                     <h3>{car.model}({car.year})</h3>
