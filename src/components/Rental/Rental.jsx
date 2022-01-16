@@ -94,29 +94,29 @@ const Rental = ({match}) => {
             <div>
                 <div className="card-rental">
                 <img src={`http://localhost:5000/${car.carImage}`} alt="rentalImg"/>
-                <div className="card-rental-body">
-                    <h4>Car Info</h4>
-                    <p>{car.model}({car.year})</p>
-                    <p>Type: {car.carType}</p>
-                    <p>Seating: {car.numberOfSeats}</p>
-                    <p>Transmission: {car.transmission}</p>
-                    <p>Daily Rental Rate: ${car.dailyRentalRate}</p>
-                    <br></br>
-                    <div className="rental-options">
-                        <h4>Rental Options</h4>
-                        <label>From:</label>
-                        <input type="date" name="from" className="form-control" onChange={handleChange}/>
-                        <label>To:</label>
-                        <input type="date" name="to" className="form-control" onChange={handleChange}/>
-                        <label>Miles:</label>
-                        <input type="number" name="miles" className="form-control" placeholder="Enter if more than 15" onChange={handleChange}/>
-                        <label>Coupon Code:</label>
-                        <input type="text" name="coupon" className="form-control" placeholder="Enter if applicable" onChange={handleChange}/>
-                        <input type="checkbox" name="insurance" className="form-check-input" onChange={handleChange}/>
-                        <label className="form-check-label" htmlFor="flexCheckDefault">Opt-in For Car Insurance</label>
-                        <button type="submit" className="btn btn-dark">Confirm Rental</button>
+                    <div className="card-rental-body">
+                        <h4>Car Info</h4>
+                        <p>{car.model}({car.year})</p>
+                        <p>Type: {car.carType}</p>
+                        <p>Seating: {car.numberOfSeats}</p>
+                        <p>Transmission: {car.transmission}</p>
+                        <p>Daily Rental Rate: ${car.dailyRentalRate}</p>
+                        <br></br>
+                        <div className="rental-options">
+                            <h4>Rental Options</h4>
+                            <label>From:</label>
+                            <input type="date" name="from" className="form-control" onChange={handleChange}/>
+                            <label>To:</label>
+                            <input type="date" name="to" className="form-control" onChange={handleChange}/>
+                            <label>Miles:</label>
+                            <input type="number" name="miles" className="form-control" placeholder="Enter if more than 15" onChange={handleChange}/>
+                            <label>Coupon Code:</label>
+                            <input type="text" name="coupon" className="form-control" placeholder="Enter if applicable" onChange={handleChange}/>
+                            <input type="checkbox" name="insurance" className="form-check-input" onChange={handleChange}/>
+                            <label className="form-check-label" htmlFor="flexCheckDefault">Opt-in For Car Insurance</label>
+                            <button type="submit" className="btn btn-dark">Confirm Rental</button>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         )
