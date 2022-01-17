@@ -135,13 +135,13 @@ const Rental = ({match}) => {
                 to,
             },
             milesTraveled: miles,
+            totalDays: totalDays,
             rentalFee: totalAmount,
             renterAgeDiscount: ageDiscount,
             insurance: insurance,
         }
         rentCar(rentalReq);
     }
-
 
     if(car){
         return (
