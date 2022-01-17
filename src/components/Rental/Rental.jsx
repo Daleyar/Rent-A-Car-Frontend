@@ -6,7 +6,6 @@ import './Rental.css'
 
 const Rental = ({match}) => {
     const carId = match.params.carid
-    
     const [car, setCar] = useState();
     const [user, setUser] = useState("");
     const [from, setFrom] = useState();

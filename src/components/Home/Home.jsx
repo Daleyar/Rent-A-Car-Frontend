@@ -5,6 +5,8 @@ import "./Home.css"
 
 const Home = (props) => {
     const [cars, setCars] = useState();
+    const [from, setFrom] = useState();
+    const [to, setTo] = useState();
 
     useEffect(() => {
         getCars();
@@ -20,9 +22,38 @@ const Home = (props) => {
         }
     }
 
+    const handleChange = (event) => {
+        if(event.target.name === "from"){
+            setFrom(event.target.value)
+        }
+        else if(event.target.name === "to"){         
+            setTo(event.target.value)
+        }
+        else if(event.target.name === "zipcode"){         
+            setTo(event.target.value)
+        }
+    }
+
     if(cars){
         return (
             <div>
+                <div className="dateWrap">
+                    <h3>Search by ZipCode or Available Dates</h3>
+                    <input type="text" name="zipcode" className="form-control" id="zipcode" placeholder="Enter Zip Code" onChange={handleChange}/>
+                    <input type="date" name="from" className="form-control" id="from" onChange={handleChange}/>
+                    <input type="date" name="to" className="form-control" id="to" onChange={handleChange}/>
+                </div>
+                <div className="carType">
+                    <h5>Filter by Type</h5>
+                    <select className="form-select" id="select1">
+                        <option>All</option>
+                        <option>Economy</option>
+                        <option>Luxury</option>
+                        <option>Standard</option>
+                        <option>SUV</option>
+                    </select>
+                </div>
+                
                 {cars[0].map(car => {
                     return (
                         <div className="card-car">

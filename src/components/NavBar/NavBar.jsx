@@ -5,16 +5,13 @@ import './NavBar.css'
 const NavBar = ({user}) => {
   return (
     <div>
-      <nav className="navbar"> 
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary"> 
         <div className="container-fluid">
             <ul className="navbar-nav me-auto">
             {user.email &&
                 <div >
                     <li className="nav-item">
                         <Link className="nav-link" to={"/home"}>Home</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to={"/rental"}>Rental</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={"/profile"}>Profile</Link>

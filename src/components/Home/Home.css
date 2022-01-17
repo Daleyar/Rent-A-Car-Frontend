@@ -20,3 +20,45 @@
 .card-car-body button {
     width: 5vw;
 }
+.dateWrap {
+    display: flexbox;
+    width: 34.5vw;
+    height: 10vh;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 35vw;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px rgb(160, 160, 160);
+    padding: 10px;
+}
+.dateWrap h3 {
+    width: 33.3vw;
+    text-align: center;
+}
+#zipcode {
+    float: left;
+    margin-right: 4px;
+    max-width: 11vw;
+    border-radius: 10px;
+}
+#from {
+    float: left;
+    margin-right: 4px;
+    max-width: 11vw;
+    border-radius: 10px;
+}
+#to {
+    max-width: 11vw;
+    border-radius: 10px;
+}
+.dateWrap button {
+    width: 22.2vw;
+}
+.carType {
+    margin-top: 5vh;
+    margin-left: 2vw;
+    max-height: 10vh;
+}
+#select1 {
+    max-width: 7vw;
+}
