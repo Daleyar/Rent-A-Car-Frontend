@@ -38,7 +38,10 @@ const Profile = () => {
 
     if(rentals){
         return (
-            <div>
+            <div className="rentals">
+                <center>
+                <h2>My Rentals</h2>
+                </center>
                 {rentals[0].map(rental =>{
                     return (
                         <div className="rental-card">
@@ -51,16 +54,24 @@ const Profile = () => {
                             <p>Total days : {rental.totalDays}</p>
                             <p>Miles traveled : {rental.milesTraveled}</p>
                             <p>Total amount : ${rental.rentalFee}</p>
-                            <p>{Date(rental.createdAt)}</p>
+                            <p>Date: {Date(rental.createdAt)}</p>
                             </div>
                         </div>
                     )
                 })}
             </div>
         )
+    // }else if(!rentals){
+    //     return (
+    //         <center>
+    //             <h1>No Rentals To Show..</h1>
+    //         </center>
+    //     )
     }else{
         return (
-            <h1>No Rentals To Show</h1>
+            <center>
+                <h1>Loading..</h1>
+            </center>
         )
     }
 }

@@ -1,12 +1,16 @@
 .rental-card {
     display: inline-flex;
-    max-height: 35vh;
+    max-height: 38vh;
     max-width: 50vw;
-    margin-left: 2vw;
+    margin-left: 25vw;
     margin-top: 5vw;
     box-shadow: 0px 0px 3px rgb(160, 160, 160);
+    overflow: hidden;
 }
 #rentalImg {
     width: 30vw;
     height: 30vh;
+}
+.rentals h2 {
+    margin-top: 10px;
 }

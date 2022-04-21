@@ -43,7 +43,7 @@ const Login = (props) => {
                         <h2>Login</h2>
                         <div className="form-group">
                             <label>Email</label>
-                            <input type="email" name="email" placeholder="Enter email" className="form-control" onChange={handleChange}/>
+                            <input type="email" name="email" placeholder="Enter email" className="form-control" autoComplete="off" onChange={handleChange}/>
                         </div>
                         <div className="form-group">
                             <label>Password </label>

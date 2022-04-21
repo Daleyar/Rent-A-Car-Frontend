@@ -1,8 +1,10 @@
 import React, { useState, useEffect} from "react";
 import StripeCheckout from "react-stripe-checkout";
+// import stripeKey from './api/apiKey';
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import './Rental.css'
+// import { toast } from "react-toastify";
 
 const Rental = ({match}) => {
     const carId = match.params.carid
@@ -46,8 +48,6 @@ const Rental = ({match}) => {
                 console.log(milesDiff)
                 setTotalAmount(totalAmount + .25 * milesDiff)
             }
-            if (coupon === "firstCar10" )
-                setTotalAmount(totalAmount - Math.round(totalAmount * .10))
         }
     }, [totalDays, miles, insurance, coupon, ageDiscount])
 
@@ -94,6 +94,9 @@ const Rental = ({match}) => {
         }
         else if(event.target.name === "coupon"){         
             setCoupon(event.target.value)
+            if(event.target.value === "first10"){
+                setTotalAmount(totalAmount - 10)
+            }
         }
     }
 
@@ -106,7 +109,6 @@ const Rental = ({match}) => {
 
     function insuranceCheck() {
         let checkBox = document.getElementById("insurance")
-        console.log(checkBox)
         if (checkBox.checked === true){
             setTotalAmount(totalAmount + 50)
         }else{
@@ -114,12 +116,25 @@ const Rental = ({match}) => {
         }
     }
 
+    // const notify = () => {
+    //     toast.success('Purchase Complete!', {
+    //         position: "top-center",
+    //         autoClose: 8000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: false,
+    //         progress: undefined,
+    //     });
+    // }
+
     const rentCar = async (rentalReq) => {
         console.log(rentalReq)
         try {
             let response = await axios.post('http://localhost:5000/api/rentcar/', rentalReq);
             console.log(response.data)
             console.log("Car rental was successful")
+            // notify()
         } catch (error) {
             console.log(error);
         }
@@ -163,9 +178,9 @@ const Rental = ({match}) => {
                             <label>To:</label>
                             <input type="date" name="to" className="form-control" onChange={handleChange}/>
                             <label>Miles:</label>
-                            <input type="text" name="miles" className="form-control" placeholder="Enter if more than 15" onChange={handleChange}/>
+                            <input type="text" name="miles" className="form-control" placeholder="Enter if more than 15" autoComplete="off" onChange={handleChange}/>
                             <label>Coupon Code:</label>
-                            <input type="text" name="coupon" className="form-control" placeholder="Enter if applicable" onChange={handleChange}/>
+                            <input type="text" name="coupon" className="form-control" placeholder="Enter if applicable" autoComplete="off" onChange={handleChange}/>
                             <label>Full Coverage Insurance ($50)</label>
                             <input type="checkbox" name="insurance" id="insurance" className="form-check-input" onChange={insuranceCheck}/>
                             {from && to &&(
@@ -183,7 +198,7 @@ const Rental = ({match}) => {
                                     token = {onToken}
                                     currency = "USD"
                                     amount = {totalAmount * 100}
-                                    stripeKey ="pk_test_51KIMk3ITDzjTFxsQYtTxlaJx6ZZ9AFiHF9HRBk6u5KGSPdjLNjITHBfPlH6DN0160MS1MKtUvUkua7N9VMxCJG7C00V0gJkeOL"
+                                    stripeKey = "pk_test_51KIMk3ITDzjTFxsQYtTxlaJx6ZZ9AFiHF9HRBk6u5KGSPdjLNjITHBfPlH6DN0160MS1MKtUvUkua7N9VMxCJG7C00V0gJkeOL"
                                 >
                                 <button type="submit" className="btn btn-dark">Confirm Rental</button>
                                 </StripeCheckout>
